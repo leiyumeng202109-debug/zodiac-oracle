@@ -1,0 +1,232 @@
+@import "tailwindcss";
+
+:root {
+  --background: 262 47% 7%;
+  --foreground: 45 30% 95%;
+  --card: 262 40% 10%;
+  --card-foreground: 45 30% 95%;
+  --popover: 262 40% 10%;
+  --popover-foreground: 45 30% 95%;
+  --primary: 45 100% 70%;
+  --primary-foreground: 262 47% 7%;
+  --secondary: 262 30% 15%;
+  --secondary-foreground: 45 30% 95%;
+  --muted: 262 20% 20%;
+  --muted-foreground: 262 10% 60%;
+  --accent: 280 60% 50%;
+  --accent-foreground: 45 30% 95%;
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 262 30% 20%;
+  --input: 262 30% 15%;
+  --ring: 45 100% 70%;
+  --radius: 1rem;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background: 
+    radial-gradient(ellipse at 20% 20%, hsl(280 50% 15%) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, hsl(262 50% 15%) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, hsl(262 40% 10%) 0%, hsl(262 47% 7%) 100%);
+  background-attachment: fixed;
+  color: hsl(var(--foreground));
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Georgia', serif;
+}
+
+/* 星星粒子 */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: hsl(var(--primary));
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.star:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+.star:nth-child(2) { top: 20%; left: 80%; animation-delay: 0.5s; }
+.star:nth-child(3) { top: 40%; left: 10%; animation-delay: 1s; }
+.star:nth-child(4) { top: 60%; left: 90%; animation-delay: 1.5s; }
+.star:nth-child(5) { top: 80%; left: 30%; animation-delay: 2s; }
+.star:nth-child(6) { top: 30%; left: 50%; animation-delay: 0.3s; }
+.star:nth-child(7) { top: 70%; left: 70%; animation-delay: 0.8s; }
+.star:nth-child(8) { top: 50%; left: 20%; animation-delay: 1.3s; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 10px hsl(var(--primary) / 0.8); }
+}
+
+/* 发光效果 */
+.glow {
+  box-shadow: 0 0 60px -15px hsl(var(--primary) / 0.4);
+}
+
+.glow-text {
+  text-shadow: 0 0 30px hsl(var(--primary) / 0.6), 0 0 60px hsl(var(--primary) / 0.3);
+}
+
+.text-glow {
+  text-shadow: 0 0 20px hsl(var(--primary) / 0.8);
+}
+
+/* 渐变边框 */
+.gradient-border {
+  position: relative;
+  background: hsl(var(--card)) !important;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.6), hsl(var(--accent) / 0.6), hsl(var(--primary) / 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* 玻璃态 */
+.glass {
+  background: hsl(var(--card) / 0.8) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* 消息动画 */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message-enter {
+  animation: slideIn 0.4s ease-out;
+}
+
+/* 打字动画 */
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.pulse-dot {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Select 组件 */
+.select-trigger {
+  background: hsl(var(--secondary)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--foreground)) !important;
+  cursor: pointer !important;
+  font-family: 'Georgia', serif;
+}
+
+.select-trigger:hover {
+  border-color: hsl(var(--primary) / 0.5) !important;
+  box-shadow: 0 0 20px hsl(var(--primary) / 0.2);
+}
+
+.select-content {
+  background: hsl(var(--popover)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  z-index: 9999 !important;
+  font-family: 'Georgia', serif;
+}
+
+.select-item {
+  color: hsl(var(--popover-foreground)) !important;
+  cursor: pointer !important;
+}
+
+.select-item:hover,
+.select-item[data-highlighted] {
+  background: hsl(var(--accent) / 0.3) !important;
+}
+
+/* 输入框 */
+.input-field {
+  background: hsl(var(--secondary)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--foreground)) !important;
+  font-family: 'Georgia', serif;
+}
+
+.input-field::placeholder {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+.input-field:focus {
+  border-color: hsl(var(--primary)) !important;
+  box-shadow: 0 0 20px hsl(var(--primary) / 0.3) !important;
+}
+
+/* 按钮 */
+.btn-primary {
+  background: linear-gradient(135deg, hsl(var(--accent)), hsl(280 60% 40%)) !important;
+  color: hsl(var(--primary)) !important;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border: 1px solid hsl(var(--primary) / 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px -10px hsl(var(--accent) / 0.5);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+/* 装饰线 */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: hsl(var(--primary) / 0.5);
+}
+
+.ornament::before,
+.ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.5), transparent);
+}
+
+/* 滚动条 */
+.scroll-area > div > div::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scroll-area > div > div::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-area > div > div::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.3);
+  border-radius: 2px;
+}
